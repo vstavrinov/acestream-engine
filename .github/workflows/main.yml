@@ -14,7 +14,7 @@ env:
   DOCKER_REPO: acestream-engine
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -27,17 +27,16 @@ jobs:
                 github.event.inputs.debug_enabled ||
                 failure() }}
         uses: mxschmitt/action-tmate@v3
-
-  deploy:
-    if: startsWith(github.ref, 'refs/tags/')
-    needs:
-      - test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Deploy acestream-engine
-        env:
-          TAG: ${{ github.ref_name }}
-          ENDPOINT: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_REPO }}/actions/workflows/main.yml"
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./deploy.sh
+      - name: deploy
+        if: startswith(github.ref, 'refs/tags/')
+        needs:
+          - test
+        runs-on: ubuntu-latest
+        steps:
+          - uses: actions/checkout@v2
+          - name: deploy acestream-engine
+            env:
+              tag: ${{ github.ref_name }}
+              endpoint: ${{ secrets.docker_username }}/${{ env.docker_repo }}/actions/workflows/main.yml"
+              token: ${{ secrets.github_token }}
+            run: ./deploy.sh
