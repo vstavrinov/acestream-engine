@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 
 : ${TAG:=latest}
@@ -12,11 +12,11 @@ docker push $DOCKER_USERNAME/$DOCKER_REPO:$TAG
 docker push $DOCKER_USERNAME/$DOCKER_REPO:latest
 REST="curl -siX POST                            \
     -H 'Accept: application/vnd.github.v3+json' \
-    -H "Authorization: token $TOKEN"            \
+    -H 'Authorization: token $TOKEN'            \
     -d '{"ref": "master"}'                      \
     https://api.github.com/repos/$ENDPOINT/dispatches"
 
-RETURN="$("$REST")"
+RETURN="$($REST)"
 echo "$RETURN"
 STATUS=$(echo "$ETURN"
     head -1           |
