@@ -29,14 +29,8 @@ jobs:
         uses: mxschmitt/action-tmate@v3
       - name: deploy
         if: startswith(github.ref, 'refs/tags/')
-        needs:
-          - test
-        runs-on: ubuntu-latest
-        steps:
-          - uses: actions/checkout@v2
-          - name: deploy acestream-engine
-            env:
-              tag: ${{ github.ref_name }}
-              endpoint: ${{ secrets.docker_username }}/${{ env.docker_repo }}/actions/workflows/main.yml"
-              token: ${{ secrets.github_token }}
-            run: ./deploy.sh
+        env:
+          tag: ${{ github.ref_name }}
+          endpoint: ${{ secrets.docker_username }}/${{ env.docker_repo }}/actions/workflows/main.yml"
+          token: ${{ secrets.github_token }}
+        run: ./deploy.sh
