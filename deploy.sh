@@ -1,5 +1,4 @@
-#!/bin/bash
-
+#!/bin/bash -e
 
 : ${TAG:=latest}
 # Deploy to docker hub new version (tag)
@@ -16,14 +15,14 @@ REST="curl -siX POST                            \
     -d '{"ref": "master"}'                      \
     https://api.github.com/repos/$ENDPOINT/dispatches"
 
-RETURN="$($REST)"
+RETURN="$(eval "$REST")"
 echo "$RETURN"
-STATUS=$(echo "$ETURN"
-    head -1           |
+STATUS=$(echo "$ETURN" |
+    head -1            |
     awk '{print $2}')
 
-if [ $STATUS -ge 400 ]; then
+if [ ${STATUS:=400} -ge 400 ]; then
     set -x -v
-    "$REST"
+    eval "$REST"
     exit 1
 fi
