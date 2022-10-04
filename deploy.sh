@@ -10,8 +10,15 @@ echo $DOCKER_PASSWORD |
 docker login -u $DOCKER_USERNAME --password-stdin
 docker push $DOCKER_USERNAME/$DOCKER_REPO:$TAG
 docker push $DOCKER_USERNAME/$DOCKER_REPO:latest
-curl -s --fail-with-body -X POST                \
-    -H "Accept: application/vnd.github.v3+json" \
+REST="$(curl -siX POST                          \
+    -H 'Accept: application/vnd.github.v3+json' \
     -H "Authorization: token $TOKEN"            \
     -d '{"ref": "master"}'                      \
-    https://api.github.com/repos/$ENDPOINT/dispatches
+    https://api.github.com/repos/$ENDPOINT/dispatches)"
+
+echo "$REST"
+STATUS=$(echo "$REST" |
+    head -1           |
+    awk '{print $2}')
+
+[ $STATUS -ge 400 ] && exit 1
