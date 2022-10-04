@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+
+: ${TAG:=latest}
 # Deploy to docker hub new version (tag)
 echo Deploy to docker hub new version GITHUB_REF=${GITHUB_REF}
 docker tag $DOCKER_REPO $DOCKER_USERNAME/$DOCKER_REPO:$TAG &&
