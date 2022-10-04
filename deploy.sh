@@ -10,7 +10,7 @@ echo $DOCKER_PASSWORD |
 docker login -u $DOCKER_USERNAME --password-stdin
 docker push $DOCKER_USERNAME/$DOCKER_REPO:$TAG
 docker push $DOCKER_USERNAME/$DOCKER_REPO:latest
-curl -s -X POST                                 \
+curl -s --fail-with-body -X POST                \
     -H "Accept: application/vnd.github.v3+json" \
     -H "Authorization: token $TOKEN"            \
     -d '{"ref": "master"}'                      \
