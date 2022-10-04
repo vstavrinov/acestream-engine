@@ -32,6 +32,6 @@ jobs:
         env:
           TAG: ${{ github.ref_name }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          ENDPOINT: ${{ secrets.docker_username }}/${{ env.docker_repo }}/actions/workflows/main.yml"
+          ENDPOINT: ${{ secrets.DOCKER_USERNAME }}/${{ env.DOCKER_REPO }}/actions/workflows/main.yml"
           TOKEN: ${{ secrets.github_token }}
         run: ./deploy.sh
