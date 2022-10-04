@@ -30,7 +30,8 @@ jobs:
       - name: deploy
         if: startswith(github.ref, 'refs/tags/')
         env:
-          tag: ${{ github.ref_name }}
-          endpoint: ${{ secrets.docker_username }}/${{ env.docker_repo }}/actions/workflows/main.yml"
-          token: ${{ secrets.github_token }}
+          TAG: ${{ github.ref_name }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          ENDPOINT: ${{ secrets.docker_username }}/${{ env.docker_repo }}/actions/workflows/main.yml"
+          TOKEN: ${{ secrets.github_token }}
         run: ./deploy.sh
