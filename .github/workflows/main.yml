@@ -34,7 +34,7 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           ENDPOINT: ${{ secrets.DOCKER_USERNAME }}/acestream-service/actions/workflows/main.yml
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run:
+        run: |
           ./deploy.sh
           REST="curl -siX POST                                       \
               -H 'Accept: application/vnd.github.v3+json'            \
