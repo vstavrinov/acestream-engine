@@ -34,4 +34,22 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           ENDPOINT: ${{ secrets.DOCKER_USERNAME }}/acestream-service/actions/workflows/main.yml
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./deploy.sh
+        run:
+          ./deploy.sh
+          REST="curl -siX POST                                       \
+              -H 'Accept: application/vnd.github.v3+json'            \
+              -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+              -d '{"ref": "master"}'                                 \
+              https://api.github.com/repos/$ENDPOINT/dispatches"
+
+          RETURN="$(eval "$REST")"
+          echo "$RETURN"
+          STATUS=$(echo "$ETURN" |
+              head -1            |
+              awk '{print $2}')
+
+          if [ ${STATUS:=400} -ge 400 ]; then
+              set -x -v
+              eval "$REST"
+              exit 1
+          fi
