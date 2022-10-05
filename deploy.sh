@@ -14,7 +14,7 @@ COMMIT=$(git rev-parse --short $GITHUB_SHA)
 REST="curl -siX POST                            \
     -H 'Accept: application/vnd.github.v3+json' \
     -H 'Authorization: token $TOKEN'            \
-    -d '{\"ref\": \"master\"
+    -d '{\"ref\": \"master\",
          \"inputs\":
            {\"acestream\": \"$COMMIT\"}
         }'                                      \
