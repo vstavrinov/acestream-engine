@@ -16,6 +16,8 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    permissions:
+      actions: write
     steps:
       - uses: actions/checkout@v2
       - name: setup
@@ -32,7 +34,7 @@ jobs:
         env:
           TAG: ${{ github.ref_name }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          ENDPOINT: "vstavrinov/acestream-service/actions/workflows/main.yml"
+          ENDPOINT: "${{ secrets.DOCKER_USERNAME }}/acestream-service/actions/workflows/main.yml"
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./deploy.sh
