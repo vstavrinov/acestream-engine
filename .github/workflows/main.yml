@@ -32,13 +32,13 @@ jobs:
         env:
           TAG: ${{ github.ref_name }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          ENDPOINT: ${{ secrets.DOCKER_USERNAME }}/acestream-service/actions/workflows/main.yml
+          ENDPOINT: "vstavrinov/acestream-service/actions/workflows/main.yml"
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./deploy.sh
           REST="curl -siX POST                                       \
-              -H 'Accept: application/vnd.github.v3+json'            \
-              -H 'Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}' \
+              -H "Accept: application/vnd.github.v3+json"            \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
               -d '{"ref": "master"}'                                 \
               https://api.github.com/repos/$ENDPOINT/dispatches"
 
