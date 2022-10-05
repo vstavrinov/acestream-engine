@@ -9,10 +9,15 @@ echo $DOCKER_PASSWORD |
 docker login -u $DOCKER_USERNAME --password-stdin
 docker push $DOCKER_USERNAME/$DOCKER_REPO:$TAG
 docker push $DOCKER_USERNAME/$DOCKER_REPO:latest
+
+COMMIT=$(git rev-parse --short $GITHUB_SHA)
 REST="curl -siX POST                            \
     -H 'Accept: application/vnd.github.v3+json' \
     -H 'Authorization: token $TOKEN'            \
-    -d '{\"ref\": \"master\"}'                  \
+    -d '{\"ref\": \"master\"
+         \"inputs\":
+           {\"acestream\": \"'$COMMIT'\"}
+        }'                                      \
     https://api.github.com/repos/$ENDPOINT/dispatches"
 
 RETURN="$(eval "$REST")"
