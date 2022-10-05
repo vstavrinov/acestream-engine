@@ -17,7 +17,7 @@ REST="curl -siX POST                            \
 
 RETURN="$(eval "$REST")"
 echo "$RETURN"
-STATUS=$(echo "$ETURN" |
+STATUS=$(echo "$RETURN" |
     head -1            |
     awk '{print $2}')
 
