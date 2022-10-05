@@ -16,7 +16,7 @@ REST="curl -siX POST                            \
     -H 'Authorization: token $TOKEN'            \
     -d '{\"ref\": \"master\"
          \"inputs\":
-           {\"acestream\": \"'$COMMIT'\"}
+           {\"acestream\": \"$COMMIT\"}
         }'                                      \
     https://api.github.com/repos/$ENDPOINT/dispatches"
 

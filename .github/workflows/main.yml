@@ -9,9 +9,6 @@ on:
         description: 'Run the build with tmate debugging enabled'
         required: false
         default: false
-      acestream:
-        description: 'Acestream update indicator'
-        required: false
 
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -32,8 +29,7 @@ jobs:
                 failure() }}
         uses: mxschmitt/action-tmate@v3
       - name: deploy
-        if: ${{ startswith(github.ref, 'refs/tags/') ||
-                github.event.inputs.acestream }}
+        if: ${{ startswith(github.ref, 'refs/tags/')
         env:
           TAG: ${{ github.ref_name }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
