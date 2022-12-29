@@ -20,6 +20,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: setup
+        env:
+          TAG: ${{ github.ref_name }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          ENDPOINT: ${{ secrets.DOCKER_USERNAME }}/acestream-service/actions/workflows/main.yml
+          TOKEN: ${{ secrets.ACESTREAM_SERVICE_TOKEN }}
         run: ./setup.sh
       - name: test
         run: ./test.sh
@@ -30,9 +35,4 @@ jobs:
         uses: mxschmitt/action-tmate@v3
       - name: deploy
         if: ${{ startswith(github.ref, 'refs/tags/') }}
-        env:
-          TAG: ${{ github.ref_name }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          ENDPOINT: ${{ secrets.DOCKER_USERNAME }}/acestream-service/actions/workflows/main.yml
-          TOKEN: ${{ secrets.ACESTREAM_SERVICE_TOKEN }}
         run: ./deploy.sh
