@@ -13,6 +13,10 @@ on:
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
   DOCKER_REPO: acestream-engine
+  TAG: ${{ github.ref_name }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  ENDPOINT: ${{ secrets.DOCKER_USERNAME }}/acestream-service/actions/workflows/main.yml
+  TOKEN: ${{ secrets.ACESTREAM_SERVICE_TOKEN }}
 
 jobs:
   deploy:
@@ -21,10 +25,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: setup
         env:
-          TAG: ${{ github.ref_name }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          ENDPOINT: ${{ secrets.DOCKER_USERNAME }}/acestream-service/actions/workflows/main.yml
-          TOKEN: ${{ secrets.ACESTREAM_SERVICE_TOKEN }}
         run: ./setup.sh
       - name: test
         run: ./test.sh

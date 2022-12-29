@@ -1,7 +1,6 @@
 #!/bin/bash -e
 
 # Deploy to docker hub new version (tag)
-echo Deploy to docker hub new version GITHUB_REF=${GITHUB_REF}
 echo $DOCKER_PASSWORD |
 docker login -u $DOCKER_USERNAME --password-stdin
 docker push $DOCKER_USERNAME/$DOCKER_REPO:$TAG
