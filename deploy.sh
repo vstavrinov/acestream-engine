@@ -4,7 +4,7 @@
 echo $DOCKER_PASSWORD |
 docker login -u $DOCKER_USERNAME --password-stdin
 docker push $DOCKER_USERNAME/$DOCKER_REPO:$TAG
-docker push $DOCKER_USERNAME/$DOCKER_REPO:latest
+docker push $DOCKER_USERNAME/$DOCKER_REPO
 
 COMMIT=$(git rev-parse --short $GITHUB_SHA)
 REST="curl -siX POST                            \
