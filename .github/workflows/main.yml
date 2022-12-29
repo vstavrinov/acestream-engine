@@ -24,7 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: setup
-        env:
         run: ./setup.sh
       - name: test
         run: ./test.sh
