@@ -1,6 +1,7 @@
 #!/bin/bash -e
 
 # Deploy to docker hub new version (tag)
+docker tag $DOCKER_USERNAME/$DOCKER_REPO{,:$TAG}
 echo $DOCKER_PASSWORD |
 docker login -u $DOCKER_USERNAME --password-stdin
 docker push $DOCKER_USERNAME/$DOCKER_REPO:$TAG
