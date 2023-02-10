@@ -13,7 +13,7 @@ REST="curl -siX POST                            \
     -H 'Authorization: token $TOKEN'            \
     -d '{\"ref\": \"master\",
          \"inputs\":
-           {\"acestream\": \"$COMMIT\"}
+           {\"deploy\": \"true\"}
         }'                                      \
     https://api.github.com/repos/$ENDPOINT/dispatches"
 
