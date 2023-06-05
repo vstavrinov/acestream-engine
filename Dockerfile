@@ -7,4 +7,8 @@ USER ace
 WORKDIR /srv/ace
 RUN curl --progress-bar $BASE_URL/acestream_$ACE_VERSION.tar.gz | tar xzf -;\
     pip install --no-cache-dir --upgrade --requirement requirements.txt
-CMD rm --recursive --force .ACEStream; ./start-engine --client-console
+CMD mkdir /dev/shm/.ACEStream;                 \
+    ln -s /dev/shm/.ACEStream .ACEStream;      \
+    ./start-engine                             \
+        --client-console                       \
+        --live-cache-type memory
