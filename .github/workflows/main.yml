@@ -9,6 +9,9 @@ on:
         description: 'Run the build with tmate debugging enabled'
         required: false
         default: false
+      acestream:
+        description: 'acestream update indicator'
+        required: false
 
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -38,5 +41,6 @@ jobs:
           GITHUB_USERNAME: ${{ github.actor }}
           GITHUB_REGISTRY: ghcr.io
           IMAGE_NAME: ${{ github.repository }}
-        if: ${{ startswith(github.ref, 'refs/tags/') }}
+        if: ${{ startswith(github.ref, 'refs/tags/') }} ||
+                github.event.inputs.acestream }}
         run: ./deploy.sh
