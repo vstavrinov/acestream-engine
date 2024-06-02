@@ -33,5 +33,10 @@ jobs:
                 failure() }}
         uses: mxschmitt/action-tmate@v3
       - name: deploy
+        env:
+          GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: ${{ github.actor }}
+          GITHUB_REGISTRY: ghcr.io
+          IMAGE_NAME: ${{ github.repository }}
         if: ${{ startswith(github.ref, 'refs/tags/') }}
         run: ./deploy.sh
